@@ -23,23 +23,19 @@ const Deck = () => {
 
   useEffect(() => {
     async function getCard() {
-      try {
-        const res = await axios.get(
-          `http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
-        );
+      const res = await axios.get(
+        `http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+      );
 
-        if (res.data.remaining === 0) {
-          setTimeout(() => {
-            alert("no more cards!");
-          }, 300);
+      if (res.data.remaining === 0) {
+        setTimeout(() => {
+          alert("no more cards!");
+        }, 300);
 
-          setAutoDraw(false);
-        }
-
-        setCardArray((cardArray) => [...cardArray, res.data.cards[0].image]);
-      } catch {
-        console.log("hi");
+        setAutoDraw(false);
       }
+
+      setCardArray((cardArray) => [...cardArray, res.data.cards[0].image]);
     }
 
     if (autoDraw && !timerRef.current) {
